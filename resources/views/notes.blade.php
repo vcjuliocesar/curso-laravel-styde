@@ -1,5 +1,7 @@
 @extends('layout')
 
+@section('title','Listado de notas')
+
 @section('content')
 
 
