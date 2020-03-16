@@ -12,7 +12,13 @@
 */
 
 Route::get('/', function () {
-  return view('notes');
+  $notes = [
+    "Primera nota",
+    "Segunda nota",
+    "Tercera nota",
+    "Cuarta nota",
+  ];
+  return view('notes',['notes' => $notes]);
 });
 
 Route::get('notas/crear',function (){
