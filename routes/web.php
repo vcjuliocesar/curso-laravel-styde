@@ -11,10 +11,18 @@
 |
 */
 
-Route::get('notas', function () {
-  return "Aqui estará nuestro listado de notas";
+Route::get('/', function () {
+  return view('notes');
 });
 
 Route::get('notas/crear',function (){
-  return "Aqui estará nuestro formulario para crear notas";
+  return view('add-note');
 });
+
+Route::get('notas/{id}/editar', function ($id) {
+  return "Aqui podremos editar la nota :" .$id;
+})->where('id','[0-9]+');
+
+Route::get('notas/{id}', function ($id) {
+  return "Aqui podremos ver el detalle de la nota :" .$id;
+})->where('id','[0-9]+');
