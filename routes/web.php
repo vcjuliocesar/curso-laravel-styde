@@ -19,16 +19,16 @@ Route::get('/', function () {
     "Cuarta nota",
   ];
   return view('notes',['notes' => $notes]);
-});
-
-Route::get('notas/crear',function (){
-  return view('add-note');
-});
-
-Route::get('notas/{id}/editar', function ($id) {
-  return "Aqui podremos editar la nota :" .$id;
-})->where('id','[0-9]+');
+})->name('notes.index');
 
 Route::get('notas/{id}', function ($id) {
   return "Aqui podremos ver el detalle de la nota :" .$id;
-})->where('id','[0-9]+');
+})->where('id','[0-9]+')->name('notes.show');
+
+Route::get('notas/crear',function (){
+  return view('add-note');
+})->name('notes.create');
+
+Route::get('notas/{id}/editar', function ($id) {
+  return "Aqui podremos editar la nota :" .$id;
+})->where('id','[0-9]+')->name('notes.edit');
