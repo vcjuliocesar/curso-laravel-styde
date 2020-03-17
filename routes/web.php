@@ -12,12 +12,7 @@
 */
 
 Route::get('/', function () {
-  $notes = [
-    "Primera nota",
-    "Segunda nota",
-    "Tercera nota",
-    "Cuarta nota",
-  ];
+  $notes = DB::table('notes')->get();
   return view('notes',['notes' => $notes]);
 })->name('notes.index');
 
@@ -30,5 +25,8 @@ Route::get('notas/crear',function (){
 })->name('notes.create');
 
 Route::get('notas/{id}/editar', function ($id) {
-  return "Aqui podremos editar la nota :" .$id;
+  $note = DB::table('notes')
+    ->where('id',$id)
+    ->first();
+    return view("edit-note",["note" => $note]);
 })->where('id','[0-9]+')->name('notes.edit');
