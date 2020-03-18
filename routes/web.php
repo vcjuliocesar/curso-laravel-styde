@@ -10,8 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Illuminate\Support\Facades\DB;
 use App\Note;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
   $notes = Note::all();
@@ -25,6 +25,14 @@ Route::get('notas/{id}', function ($id) {
 Route::get('notas/crear',function (){
   return view('add-note');
 })->name('notes.create');
+
+Route::post('notas',function(Request $request) {
+  Note::create([
+    'title' => $request->input('title'),
+    'content' => $request->input('content'),
+  ]);
+  return redirect('/');
+})->name('notes.store');
 
 Route::get('notas/{id}/editar', function ($id) {
   $note = Note::find($id);
