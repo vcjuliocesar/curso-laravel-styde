@@ -13,33 +13,12 @@
 use App\Note;
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
-  $notes = Note::all();
-  return view('notes',['notes' => $notes]);
-})->name('notes.index');
+Route::get('/', 'NoteController@index')->name('notes.index');
 
-Route::get('notas/{id}', function ($id) {
-  return "Aqui podremos ver el detalle de la nota :" .$id;
-})->where('id','[0-9]+')->name('notes.show');
+Route::get('notas/{id}', 'NoteController@detail')->where('id','[0-9]+')->name('notes.show');
 
-Route::get('notas/crear',function (){
-  return view('add-note');
-})->name('notes.create');
+Route::get('notas/crear','NoteController@create')->name('notes.create');
 
-Route::post('notas',function(Request $request) {
-  $request->validate([
-      'title'=>'required',
-      'content'=>'required',
-  ]);
+Route::post('notas','NoteController@store')->name('notes.store');
 
-  Note::create([
-    'title' => $request->input('title'),
-    'content' => $request->input('content'),
-  ]);
-  return redirect('/');
-})->name('notes.store');
-
-Route::get('notas/{id}/editar', function ($id) {
-  $note = Note::find($id);
-    return view("edit-note",["note" => $note]);
-})->where('id','[0-9]+')->name('notes.edit');
+Route::get('notas/{id}/editar', 'NoteController@edit')->where('id','[0-9]+')->name('notes.edit');
