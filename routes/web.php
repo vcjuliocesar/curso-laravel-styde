@@ -27,6 +27,11 @@ Route::get('notas/crear',function (){
 })->name('notes.create');
 
 Route::post('notas',function(Request $request) {
+  $request->validate([
+      'title'=>'required',
+      'content'=>'required',
+  ]);
+
   Note::create([
     'title' => $request->input('title'),
     'content' => $request->input('content'),
