@@ -48,4 +48,11 @@ class NoteController extends Controller
     $note->update($data);
     return redirect('/');
   }
+
+  public function destroy($id)
+  {
+    $note = Note::find($id);
+    $note->delete();
+    return redirect('/');
+  }
 }
