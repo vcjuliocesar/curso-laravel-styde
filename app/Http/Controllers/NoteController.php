@@ -38,4 +38,14 @@ class NoteController extends Controller
     $note = Note::find($id);
       return view("edit-note",["note" => $note]);
   }
+
+  public function update(Note $note, Request $request)
+  {
+    $data = $request->validate([
+        'title'=>['required',Rule::unique('notes')->ignore($note)],
+        'content'=>'required',
+    ]);
+    $note->update($data);
+    return redirect('/');
+  }
 }
